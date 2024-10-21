@@ -15,18 +15,14 @@ import java.util.logging.Logger;
  */
 public class AuthenticationService {
 
-    private PersonDAO persondao;
+    private PersonDAO personDao;
 
-    public AuthenticationService() {
-        this.persondao = new PersonDAO();
+    public AuthenticationService(PersonDAO personDao) {
+        this.personDao = personDao;
     }
 
-    // TODO: add tests
-    // TODO: Authenticate("user", "pass") - Person("user", encryptPwd("pass")) - pass
-    // TODO: Authenticate("user", "invalid") - Person("user", encryptPwd("pass")) - fail
-    // TODO: Authenticate("user", "pass") - nonexistent person - fail
-    public boolean Authenticate(String login, String password) {
-        Person person = persondao.load("name = '" + login + "'");
+    public boolean authenticate(String login, String password) {
+        Person person = personDao.load("name = '" + login + "'");
         if (person == null) {
             return false;
         }
