@@ -1,5 +1,7 @@
 package cz.upce.fei.inptp.databasedependency.dao;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import cz.upce.fei.inptp.databasedependency.entity.PersonRole;
 import cz.upce.fei.inptp.databasedependency.entity.Person;
 import cz.upce.fei.inptp.databasedependency.entity.Role;
@@ -15,10 +17,16 @@ import java.util.logging.Logger;
  */
 public class PersonRolesDAO implements DAO<PersonRole> {
 
+    @Inject
+    private Database database;
+
+    @Inject
+    private DAO<Person> personDAO;
+
     @Override
     public void save(PersonRole object) {
         try {
-            Statement st = Database.getInstance().createStatement();
+            Statement st = database.createStatement();
 
             st.execute("delete from role where id = " + object.getPerson().getId());
 
@@ -27,16 +35,16 @@ public class PersonRolesDAO implements DAO<PersonRole> {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(PersonDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonRolesDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     public PersonRole load(String parameters) {
         try {
-            Statement st = Database.getInstance().createStatement();
+            Statement st = database.createStatement();
 
-            Person person = new PersonDAO().load(parameters);
+            Person person = personDAO.load(parameters);
             if (person == null) {
                 return null;
             }

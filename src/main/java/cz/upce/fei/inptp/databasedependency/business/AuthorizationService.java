@@ -1,5 +1,7 @@
 package cz.upce.fei.inptp.databasedependency.business;
 
+import com.google.inject.Inject;
+import cz.upce.fei.inptp.databasedependency.dao.DAO;
 import cz.upce.fei.inptp.databasedependency.dao.PersonRolesDAO;
 import cz.upce.fei.inptp.databasedependency.dao.PersonDAO;
 import cz.upce.fei.inptp.databasedependency.entity.PersonRole;
@@ -12,12 +14,13 @@ import cz.upce.fei.inptp.databasedependency.entity.Role;
  */
 public class AuthorizationService {
 
+    @Inject
     private PersonDAO persondao;
-    private PersonRolesDAO personRolesDao;
+
+    @Inject
+    private DAO<PersonRole> personRolesDao;
 
     public AuthorizationService() {
-        this.persondao = new PersonDAO();
-        this.personRolesDao = new PersonRolesDAO();
     }
 
     // TODO: add tests
