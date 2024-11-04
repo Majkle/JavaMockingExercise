@@ -2,8 +2,8 @@ package cz.upce.fei.inptp.databasedependency.business;
 
 import com.google.inject.Inject;
 import cz.upce.fei.inptp.databasedependency.dao.DAO;
-import cz.upce.fei.inptp.databasedependency.dao.PersonDAO;
 import cz.upce.fei.inptp.databasedependency.entity.Person;
+
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;

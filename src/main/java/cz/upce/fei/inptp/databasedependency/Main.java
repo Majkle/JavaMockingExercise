@@ -3,15 +3,15 @@ package cz.upce.fei.inptp.databasedependency;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
-import com.google.inject.name.Names;
-import cz.upce.fei.inptp.databasedependency.business.AuthorizationService;
-import cz.upce.fei.inptp.databasedependency.business.AuthenticationService;
+import com.google.inject.TypeLiteral;
 import cz.upce.fei.inptp.databasedependency.business.AccessOperationType;
-import cz.upce.fei.inptp.databasedependency.dao.*;
-import cz.upce.fei.inptp.databasedependency.entity.PersonRole;
+import cz.upce.fei.inptp.databasedependency.business.AuthenticationService;
+import cz.upce.fei.inptp.databasedependency.business.AuthorizationService;
+import cz.upce.fei.inptp.databasedependency.dao.DAO;
+import cz.upce.fei.inptp.databasedependency.dao.Database;
 import cz.upce.fei.inptp.databasedependency.entity.Person;
+import cz.upce.fei.inptp.databasedependency.entity.PersonRole;
 
-import java.awt.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,7 +43,7 @@ public class Main {
 
 //        PersonDAO personDao = new PersonDAO();
 //        PersonDAO personDao = injector.getInstance(Key.get(PersonDAO.class, Names.named("person")));
-        DAO<Person> personDao = injector.getInstance(PersonDAO.class);
+        DAO<Person> personDao = injector.getInstance(Key.get(new TypeLiteral<DAO<Person>>() {}));
 
         // create person
         Person person = new Person(10, "Peter", AuthenticationService.encryptPassword("rafanovsky"));
@@ -61,7 +61,8 @@ public class Main {
 
         // check user roles
 //        PersonRolesDAO personRolesDAO = injector.getInstance(Key.get(PersonRolesDAO.class, Names.named("roles")));
-        DAO<PersonRole> personRolesDAO = injector.getInstance(PersonRolesDAO.class);
+//        DAO<PersonRole> personRolesDAO = injector.getInstance(PersonRolesDAO.class);
+        DAO<PersonRole> personRolesDAO = injector.getInstance(Key.get(new TypeLiteral<DAO<PersonRole>>() {}));
         PersonRole pr = personRolesDAO.load("name = 'yui'");
 //        PersonRole pr = new PersonRolesDAO().load("name = 'yui'");
         System.out.println(pr);
@@ -72,8 +73,8 @@ public class Main {
         AuthorizationService authorization =  injector.getInstance(AuthorizationService.class);
         boolean authorizationResult = authorization.Authorize(person, "/finance/report", AccessOperationType.Read);
         System.out.println(authorizationResult);
-        
-        
+
+
         // load all persons from db
         try {
             Statement statement = database.createStatement();
@@ -85,7 +86,7 @@ public class Main {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        
+
         database.close();
     }
 }

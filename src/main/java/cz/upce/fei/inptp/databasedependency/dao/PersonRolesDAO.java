@@ -1,10 +1,10 @@
 package cz.upce.fei.inptp.databasedependency.dao;
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
-import cz.upce.fei.inptp.databasedependency.entity.PersonRole;
 import cz.upce.fei.inptp.databasedependency.entity.Person;
+import cz.upce.fei.inptp.databasedependency.entity.PersonRole;
 import cz.upce.fei.inptp.databasedependency.entity.Role;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -55,7 +55,7 @@ public class PersonRolesDAO implements DAO<PersonRole> {
             while (rs.next()) {
                 roles.add(new Role(
                         rs.getString("section"),
-                        rs.getString("access"), 
+                        rs.getString("access"),
                         rs.getString("modifier")
                 ));
             }
