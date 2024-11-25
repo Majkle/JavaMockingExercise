@@ -33,14 +33,14 @@ jobs:
       - name: Run unit tests
         run: mvn -Dmaven.test.failure.ignore=true -DtestFailureIgnore=true test --file pom.xml
 
-      - name: Test report CTRF
-        run: npx junit-to-ctrf path/to/junit.xml
+#      - name: Test report CTRF
+#        run: npx junit-to-ctrf path/to/junit.xml
 
       - name: Test Reporter
         uses: dorny/test-reporter@v1.9.1
         with:
           name: JUnit Tests            # Name of the check run which will be created
-          path: target/surefire-reports/*.xml    # Path to test results
+          path: target/surefire-reports/junit*.xml    # Path to test results
           reporter: java-junit        # Format of test results
 
 
