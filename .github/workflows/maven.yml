@@ -31,7 +31,7 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Run unit tests
-        run: mvn test --file pom.xml -Dmaven.test.failure.ignore=true7
+        run: mvn test --file pom.xml -Dmaven.test.failure.ignore=true
 
       - name: Test Reporter
         uses: dorny/test-reporter@v1.9.1
