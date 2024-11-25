@@ -35,6 +35,10 @@ jobs:
 
       - name: Test Reporter
         uses: dorny/test-reporter@v1.9.1
+        with:
+          name: ''
+          path: ''
+          reporter: ''
 
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
